@@ -1,0 +1,23 @@
+name: window_persistent_state
+description: A Flutter desktop package that persists and restores the window's position and size across app sessions.
+version: 0.1.0
+publish_to: none
+
+environment:
+  sdk: ">=3.9.0 < 4.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  # Used the get different screens information and their positions
+  screen_retriever: ^0.2.0
+  # Used to persist the window's position and size
+  shared_preferences: ^2.5.4
+  # Used to interact with the window
+  window_manager: ^0.5.1
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  mocktail: ^1.0.4
+  very_good_analysis: ^10.0.0
