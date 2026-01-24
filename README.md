@@ -8,7 +8,7 @@ A Flutter desktop package that persists and restores the window's position and s
 
 Works on:
 - **Windows**.
-- **macOS** (See ⚠️  [Note on macOS Startup](#⚠️-note-on-macos-startup)).
+- **macOS** (See ⚠️  [Note on macOS Startup](#note-on-macos-startup)).
 - **Linux** (Not tested yet).
 
 
@@ -58,7 +58,7 @@ class MyApp extends StatelessWidget {
 
 Refer to the [example][example_link] to see the usage of `WindowPersistentState`.
 
-## ⚠️ Note on macOS Startup
+## Note on macOS Startup
 
 On macOS, you might notice two visual glitches during startup:
 1.  **Black Screen:** A brief flash of black background while Flutter initializes the rendering engine.
@@ -81,8 +81,8 @@ See our [MainFlutterWindow.swift][main_flutter_window_link] example for a smooth
 [shared_preferences_link]: https://pub.dev/packages/shared_preferences
 [window_manager_link]: https://pub.dev/packages/window_manager
 [screen_retriever_link]: https://pub.dev/packages/screen_retriever
-[example_link]: https://github.com/frantovar/window_persistent_state/example/lib/main.dart
-[main_flutter_window_link]: https://github.com/frantovar/window_persistent_state/example/macos/Runner/MainFlutterWindow.swift
+[example_link]: example/lib/main.dart
+[main_flutter_window_link]: example/macos/Runner/MainFlutterWindow.swift
 [license_badge]: https://img.shields.io/badge/license-MIT-blue.svg
 [license_link]: https://opensource.org/licenses/MIT
 [very_good_analysis_badge]: https://img.shields.io/badge/style-very_good_analysis-B22C89.svg
