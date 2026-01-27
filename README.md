@@ -8,9 +8,8 @@ A Flutter desktop package that persists and restores the window's position and s
 
 Works on:
 - **Windows**.
+- **Linux**.
 - **macOS** (See ⚠️  [Note on macOS Startup](#note-on-macos-startup)).
-- **Linux** (Not tested yet).
-
 
 ## Features
 
@@ -74,9 +73,8 @@ See our [MainFlutterWindow.swift][main_flutter_window_link] example for a smooth
 
 ## Roadmap
 
+- [x] Linux: Feedback on Linux support is needed.
 - [ ] Tests: Unit and Widget tests are currently missing.
-- [ ] Linux: Feedback on Linux support is needed.
-
 
 [shared_preferences_link]: https://pub.dev/packages/shared_preferences
 [window_manager_link]: https://pub.dev/packages/window_manager
