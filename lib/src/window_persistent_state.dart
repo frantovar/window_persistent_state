@@ -67,18 +67,14 @@ class WindowPersistentState extends StatefulWidget {
   State<WindowPersistentState> createState() => _WindowPersistentStateState();
 }
 
-class _WindowPersistentStateState extends State<WindowPersistentState>
-    with WindowListener {
+class _WindowPersistentStateState extends State<WindowPersistentState> {
   late final AppLifecycleListener _appLifecycleListener;
 
   @override
   void initState() {
     super.initState();
-    windowManager.addListener(this);
-    // Prevent default close to handle "X" button manually
-    unawaited(windowManager.setPreventClose(true));
 
-    // Listen to application-level exit requests (CMD+Q on macOS)
+    // Listen to application-level exit requests
     _appLifecycleListener = AppLifecycleListener(
       onExitRequested: _onExitRequested,
     );
@@ -87,7 +83,6 @@ class _WindowPersistentStateState extends State<WindowPersistentState>
   @override
   void dispose() {
     _appLifecycleListener.dispose();
-    windowManager.removeListener(this);
     super.dispose();
   }
 
@@ -108,13 +103,6 @@ class _WindowPersistentStateState extends State<WindowPersistentState>
     await _saveWindowState();
     // Return exit to allow the application to close
     return AppExitResponse.exit;
-  }
-
-  @override
-  Future<void> onWindowClose() async {
-    // Handles the "X" button on the window
-    await _saveWindowState();
-    await windowManager.destroy();
   }
 
   @override
