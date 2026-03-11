@@ -1,6 +1,6 @@
 # 0.1.3
 
-* feat: saving the state when the window is resized, moved, maximized or unmaximized.
+* feat: saving the state when the window is resized, moved, maximized, etc...
 
 # 0.1.2
 
