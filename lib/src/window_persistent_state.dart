@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:io' show Platform;
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
@@ -67,17 +68,29 @@ class WindowPersistentState extends StatefulWidget {
   State<WindowPersistentState> createState() => _WindowPersistentStateState();
 }
 
-class _WindowPersistentStateState extends State<WindowPersistentState> {
+class _WindowPersistentStateState extends State<WindowPersistentState>
+    with WindowListener {
   late final AppLifecycleListener _appLifecycleListener;
 
   @override
   void initState() {
     super.initState();
 
+    // Listen to window events justo to use onWindowClose
+    windowManager.addListener(this);
+
     // Listen to application-level exit requests
     _appLifecycleListener = AppLifecycleListener(
       onExitRequested: _onExitRequested,
     );
+  }
+
+  @override
+  Future<void> onWindowClose() async {
+    if (Platform.isMacOS) {
+      // Needed to save the window state before when using close button
+      await _saveWindowState();
+    }
   }
 
   @override
