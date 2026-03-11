@@ -70,13 +70,20 @@ class WindowPersistentState extends StatefulWidget {
 
 class _WindowPersistentStateState extends State<WindowPersistentState>
     with WindowListener {
+  // Listener to handle application-level exit requests
   late final AppLifecycleListener _appLifecycleListener;
+
+  // Debounce timer to avoid excessive saves
+  Timer? _debounceTimer;
+
+  // Cache to avoid unnecessary saves
+  Rect? _lastSavedRect;
 
   @override
   void initState() {
     super.initState();
 
-    // Listen to window events justo to use onWindowClose
+    // Listen to window events to save the state
     windowManager.addListener(this);
 
     // Listen to application-level exit requests
@@ -86,7 +93,14 @@ class _WindowPersistentStateState extends State<WindowPersistentState>
   }
 
   @override
+  Widget build(BuildContext context) {
+    return widget.child;
+  }
+
+  @override
   Future<void> onWindowClose() async {
+    _debounceTimer?.cancel();
+
     if (Platform.isMacOS) {
       // Needed to save the window state before when using close button
       await _saveWindowState();
@@ -94,33 +108,73 @@ class _WindowPersistentStateState extends State<WindowPersistentState>
   }
 
   @override
-  void dispose() {
-    _appLifecycleListener.dispose();
-    super.dispose();
+  void onWindowMove() {
+    _scheduleSave();
+    super.onWindowMove();
+  }
+
+  @override
+  void onWindowResize() {
+    _scheduleSave();
+    super.onWindowResize();
+  }
+
+  @override
+  void onWindowMaximize() {
+    _scheduleSave();
+    super.onWindowMaximize();
+  }
+
+  @override
+  void onWindowUnmaximize() {
+    _scheduleSave();
+    super.onWindowUnmaximize();
+  }
+
+  /// Handles application exit requests (e.g. CMD+Q on macOS)
+  Future<AppExitResponse> _onExitRequested() async {
+    _debounceTimer?.cancel();
+    await _saveWindowState();
+    // Return exit to allow the application to close
+    return AppExitResponse.exit;
+  }
+
+  void _scheduleSave() {
+    if (_debounceTimer?.isActive ?? false) _debounceTimer!.cancel();
+    _debounceTimer = Timer(const Duration(milliseconds: 750), _saveWindowState);
   }
 
   Future<void> _saveWindowState() async {
     try {
+      if (!mounted) return;
+
       final position = await windowManager.getPosition();
       final size = await windowManager.getSize();
+
+      final currentRect = position & size;
+
+      if (_lastSavedRect == currentRect) return;
+
       final prefs = await SharedPreferences.getInstance();
+
+      if (!mounted) return;
+
       await saveWindowRect(prefs, widget.preferencesPrefix, position, size);
+
+      _lastSavedRect = currentRect;
+
       debugPrint('Window state saved: $position, $size');
     } on Exception catch (e) {
       debugPrint('Error saving window state: $e');
     }
   }
 
-  /// Handles application exit requests (e.g. CMD+Q on macOS)
-  Future<AppExitResponse> _onExitRequested() async {
-    await _saveWindowState();
-    // Return exit to allow the application to close
-    return AppExitResponse.exit;
-  }
-
   @override
-  Widget build(BuildContext context) {
-    return widget.child;
+  void dispose() {
+    _debounceTimer?.cancel();
+    windowManager.removeListener(this);
+    _appLifecycleListener.dispose();
+    super.dispose();
   }
 }
 
