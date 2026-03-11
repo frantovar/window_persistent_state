@@ -1,3 +1,7 @@
+## 0.1.1
+
+* fix: use AppLifecycleListener to prevent windows crash on exit
+
 # 0.1.0 
 
 * Initial release.
