@@ -1,6 +1,10 @@
-## 0.1.1
+# 0.1.2
 
-* fix: use AppLifecycleListener to prevent windows crash on exit
+* fix: using onWindowClose just in macOS to save the state with close button.
+
+# 0.1.1
+
+* fix: use AppLifecycleListener to prevent windows crash on exit.
 
 # 0.1.0 
 
