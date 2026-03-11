@@ -1,3 +1,7 @@
+# 0.1.3
+
+* feat: saving the state when the window is resized, moved, maximized, etc...
+
 # 0.1.2
 
 * fix: using onWindowClose just in macOS to save the state with close button.
