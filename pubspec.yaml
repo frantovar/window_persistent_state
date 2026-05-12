@@ -12,12 +12,12 @@ dependencies:
   # Used the get different screens information and their positions
   screen_retriever: ^0.2.0
   # Used to persist the window's position and size
-  shared_preferences: ^2.5.4
+  shared_preferences: ^2.5.5
   # Used to interact with the window
   window_manager: ^0.5.1
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  mocktail: ^1.0.4
-  very_good_analysis: ^10.0.0
+  mocktail: ^1.0.5
+  very_good_analysis: ^10.2.0
