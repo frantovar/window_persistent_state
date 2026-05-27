@@ -54,12 +54,11 @@ Future<void> saveWindowRect(
 computeValidatedWindowConfig({
   required Rect? savedRect,
   required Size standardSize,
-  required bool forceCenter,
   required List<Display> displays,
 }) {
   var finalSize = standardSize;
   Offset? finalPosition;
-  var shouldCenter = forceCenter;
+  var shouldCenter = true;
 
   if (savedRect == null) {
     return (size: finalSize, position: finalPosition, shouldCenter: true);

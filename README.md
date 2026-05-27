@@ -22,6 +22,17 @@ Works on:
 1. **Initialize** `WindowPersistentState.initializeWindowState` before **runApp**.
 2. **Wrap** your **MaterialApp** with a `WindowPersistentState`. 
 
+## Window placement on startup
+
+On launch, window placement is determined automatically:
+
+- **First launch** (no saved state): the window is shown centered with `defaultSize`.
+- **Valid saved state**: the saved position and size are restored.
+- **Invalid saved state** (e.g. disconnected monitor, window mostly off-screen):
+  `defaultSize` is used and the window is centered on an available display.
+
+There is no `center` parameter — centering is applied only when no valid position
+can be restored.
 
 ## Example
 
@@ -74,7 +85,9 @@ See our [MainFlutterWindow.swift][main_flutter_window_link] example for a smooth
 ## Roadmap
 
 - [x] Linux: Feedback on Linux support is needed.
-- [ ] Tests: Unit and Widget tests are currently missing.
+- [x] Unit tests for window state logic.
+- [ ] Save full screen state.
+- [ ] Widget tests for `WindowPersistentState`.
 
 [shared_preferences_link]: https://pub.dev/packages/shared_preferences
 [window_manager_link]: https://pub.dev/packages/window_manager
