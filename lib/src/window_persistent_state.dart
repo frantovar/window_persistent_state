@@ -29,7 +29,6 @@ class WindowPersistentState extends StatefulWidget {
   /// Initializes and restores window state from SharedPreferences.
   /// Call this before [runApp] in main.
   static Future<void> initializeWindowState({
-    bool center = true,
     Size defaultSize = const Size(1280, 720),
     String? preferencesPrefix,
     Size? minSize,
@@ -49,7 +48,6 @@ class WindowPersistentState extends StatefulWidget {
     final windowConfig = await _validateWindowBounds(
       savedRect: savedRect,
       standardSize: standardSize,
-      forceCenter: center,
     );
 
     // Apply configuration and show window
@@ -182,13 +180,12 @@ Future<({Size size, Offset? position, bool shouldCenter})>
 _validateWindowBounds({
   required Rect? savedRect,
   required Size standardSize,
-  required bool forceCenter,
 }) async {
   final displays = await screenRetriever.getAllDisplays();
   return computeValidatedWindowConfig(
     savedRect: savedRect,
     standardSize: standardSize,
-    forceCenter: forceCenter,
+
     displays: displays,
   );
 }
