@@ -14,7 +14,7 @@ dependencies:
   # Used to persist the window's position and size
   shared_preferences: ^2.5.5
   # Used to interact with the window
-  window_manager: ^0.5.1
+  window_manager: ^0.6.0
 
 dev_dependencies:
   flutter_test:
